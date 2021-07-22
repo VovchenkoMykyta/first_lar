@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -19,12 +21,28 @@ Route::get('/', function () {
 
 Route::get('/tasks', function (){
     return view('tasks.index');
-});
+})->name('tasks.index');
 
 //=====================================
 
 // get create form
 
 Route::get('/tasks/create', function (){
+    return view('tasks.create');
+})->name('tasks.create');
 
-});
+//======================================
+
+//post store task
+Route::post('/tasks',function (Request $request){
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect(route('tasks.create'))
+            ->withInput()
+            ->withErrors($validator);
+    }
+    //TODO save
+})->name('tasks.store');
