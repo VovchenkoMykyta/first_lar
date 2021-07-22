@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//========= get all tasks ============
+
+Route::get('/tasks', function (){
+    return view('tasks.index');
+});
+
+//=====================================
+
+// get create form
+
+Route::get('/tasks/create', function (){
+
+});
