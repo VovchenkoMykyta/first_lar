@@ -44,5 +44,8 @@ Route::post('/tasks',function (Request $request){
             ->withInput()
             ->withErrors($validator);
     }
-    //TODO save
+    $task = new \App\Models\Task();
+    $task->name = $request->name;
+    $task->save();
+    return redirect(route('tasks.index'));
 })->name('tasks.store');
